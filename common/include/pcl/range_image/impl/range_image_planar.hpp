@@ -73,15 +73,15 @@ RangeImagePlanar::createFromPointCloudWithFixedSize (const PointCloudType& point
 
   to_range_image_system_ = to_world_system_.inverse (Eigen::Isometry);
 
-  unsigned int size = width*height;
+  unsigned int size = width * height;
   points.clear ();
   points.resize (size, unobserved_point);
 
   int top=height, right=-1, bottom=-1, left=width;
   doZBuffer (point_cloud, noise_level, min_range, top, right, bottom, left);
 
-  // Do not crop
-  //cropImage (border_size, top, right, bottom, left);
+  // crop was disabled with 1ee29e5ac9eb654e93388be0c0c5d9318c910dfe
+  cropImage (0/*border_size*/, top, right, bottom, left);
 
   recalculate3DPointPositions ();
 }
